@@ -36,6 +36,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/login",
+                    // 静态预览页（前端演示页 + 资源），放在 /static 下由 Spring Boot 直接托管
+                    "/",
+                    "/index.html",
+                    "/favicon.ico",
+                    "/assets/**",
+                    "/error",
                     "/h2-console/**",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
