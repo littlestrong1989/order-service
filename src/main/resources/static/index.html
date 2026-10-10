@@ -155,14 +155,14 @@ mvn test</pre>
     <pre># 1) 登录拿 token
 curl -s -X POST http://localhost:8080/api/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"username":"user","password":"***"}'
+  -d '{"username":"user","password":"user123"}'
 
 # 2) 浏览商品（公开，无需 token）
 curl -s "http://localhost:8080/api/products?page=1&size=5"
 
 # 3) 下单（需 token）
 curl -s -X POST http://localhost:8080/api/orders \
-  -H "Authorization: Bearer ***" \
+  -H "Authorization: Bearer &lt;token&gt;" \
   -H 'Content-Type: application/json' \
   -d '{"items":[{"productId":1,"quantity":2}]}'</pre>
     <p class="muted" style="margin-top:10px">「在线体验」标签页可以完整走一遍流程：登录 → 挑商品 → 下单 → 查订单 → 取消。</p>
@@ -173,7 +173,7 @@ curl -s -X POST http://localhost:8080/api/orders \
     <div class="card">
       <div class="row">
         <div class="field"><label>用户名</label><input id="u" value="user" autocomplete="username"/></div>
-        <div class="field"><label>密码</label><input id="p" type="password" value="***" autocomplete="current-password"/></div>
+        <div class="field"><label>密码</label><input id="p" type="password" value="user123" autocomplete="current-password"/></div>
         <button class="btn primary" id="btnLogin">登录</button>
         <button class="btn" id="btnSwitch">切换 admin</button>
         <button class="btn" id="btnLogout">退出</button>
