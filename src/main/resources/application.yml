@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+  profiles:
+    active: demo
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cache:
+    type: simple
+
+app:
+  jwt:
+    # demo only. MUST be overridden via env var APP_JWT_SECRET in production.
+    secret: ZGVtby1zZWNyZXQta2V5LWZvci1qd3Qtc2lnbmluZy1wbGVhc2UtcmVwbGFjZS1pbi1wcm9kdWN0aW9uLTEyMzQ1Ng==
+    expire-minutes: 120
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
