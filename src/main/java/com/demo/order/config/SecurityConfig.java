@@ -40,6 +40,7 @@ public class SecurityConfig {
                     "/",
                     "/index.html",
                     "/favicon.ico",
+                    "/favicon.svg",
                     "/assets/**",
                     "/error",
                     "/h2-console/**",
