@@ -295,8 +295,8 @@ curl -s -X POST http://localhost:8080/api/orders \
       </div>
     </div>
     <div class="dlg-actions">
-      <button class="btn" value="cancel">取消</button>
-      <button class="btn primary" value="ok">保存</button>
+      <button class="btn" type="button" value="cancel" onclick="this.closest('dialog').close('cancel')">取消</button>
+      <button class="btn primary" type="submit" value="ok">保存</button>
     </div>
   </form>
 </dialog>
