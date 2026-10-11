@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -60,6 +61,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleDenied(AccessDeniedException e) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(ApiResponse.fail(403, "无权限访问"));
+    }
+
+    /**
+     * 静态资源缺失（典型场景：浏览器自动请求不存在的 favicon、或拼错的前端文件）。
+     * 必须单独处理：否则会被下面的 catch-all Exception 处理器接住，
+     * 变成 500 + 一大段 ERROR 堆栈——既误导调用方，也刷屏日志。
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleNoResource(NoResourceFoundException e) {
+        log.debug("static resource not found: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.fail(404, "资源不存在"));
     }
 
     @ExceptionHandler(Exception.class)
